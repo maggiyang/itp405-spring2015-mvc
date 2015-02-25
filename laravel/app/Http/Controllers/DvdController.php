@@ -60,12 +60,14 @@ class DvdController extends Controller{
 		]); 
 		
 		if($validation->passes()){
-			DB::table('reviews')->insert([
-				'title' => $request->input('review_title'), 
-				'description' => $request->input('review_description'),
-				'dvd_id' => $request->input('review_dvdid'),
-				'rating' => $request->input('review_rating')
-			]);
+			$title=$request->input('review_title'); 
+			$description=$request->input('review_description'); 
+			$id=$request->input('review_dvdid');
+			$rating =$request->input('review_rating');
+			
+			$db = new DvdQuery(); 
+			$db->insertReview($title, $description, $id, $rating); 
+			
 			return redirect('dvds/'.$request->input('review_dvdid'))->with('success', 'Your review was successfully submitted!'); 
 		}else{
 			return redirect('/dvds/'. $request->input('review_dvdid'))

@@ -38,6 +38,15 @@ class DvdQuery{
 			->get(); 
 	}
 	
+	public function insertReview($title, $description, $id, $rating){
+		DB::table('reviews')->insert([
+			'title' => $title, 
+			'description' => $description,
+			'dvd_id' => $id,
+			'rating' => $rating
+		]);
+	}
+	
 	public function getGenre($id){
 		if($id == "0"){
 			return "All";
