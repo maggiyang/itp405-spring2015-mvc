@@ -20,8 +20,24 @@ class DvdQuery{
 				}
 		  	})
 		  ->orderBy('title', 'asc')
-		  ->get(); 
+		  ->get(array(
+			  	'dvds.id',
+			  	'title',
+			  	'rating_name',
+			  	'genre_name',
+			  	'label_name',
+			  	'sound_name',
+			  	'format_name',
+			 	'release_date'
+		  	)); 
 	}
+	
+	public function getReviews($id){
+		return DB::table('reviews')
+			->where('dvd_id', '=', $id)
+			->get(); 
+	}
+	
 	public function getGenre($id){
 		if($id == "0"){
 			return "All";
@@ -47,6 +63,29 @@ class DvdQuery{
 		
 		foreach ($rating as $r){
 			return $r->rating_name; 
+		}
+	}
+	public function getDvd($id){
+		$dvd = DB::table('dvds')
+		  ->join('ratings', 'ratings.id', '=', 'dvds.rating_id')
+		  ->join('genres', 'genres.id', '=', 'dvds.genre_id')
+		  ->join('labels', 'labels.id', '=', 'dvds.label_id')
+		  ->join('sounds', 'sounds.id', '=', 'dvds.sound_id')
+		  ->join('formats', 'formats.id', '=', 'dvds.format_id')
+		  ->where('dvds.id', '=', $id)
+		  ->get(array(
+			  	'dvds.id',
+			  	'title',
+			  	'rating_name',
+			  	'genre_name',
+			  	'label_name',
+			  	'sound_name',
+			  	'format_name',
+			 	'release_date'
+		  	));
+		
+		foreach ($dvd as $d){
+			return $d; 
 		}
 	}
 }

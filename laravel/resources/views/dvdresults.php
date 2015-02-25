@@ -18,6 +18,7 @@
 				<th>Sound</th>
 				<th>Format</th>
 				<th>Release Date</th>
+				<th>Review</th>
 			  </tr>
 		  	</thead>
 			<tbody>
@@ -34,8 +35,8 @@
   						  	$date = strtotime($dvd->release_date);
   							echo date('d-M-Y', $date);
 						  ?>
-<!--						  <?php echo $dvd->release_date?>-->
 					  	</td>
+						<td><a href="/dvds/<?php echo $dvd->id ?>">Review</a></td>
 			  		</tr>
 				<?php endforeach ?>
 		  	</tbody>
