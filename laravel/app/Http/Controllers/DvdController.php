@@ -27,11 +27,18 @@ class DvdController extends Controller{
 	}
 	
 	public function dvdByGenre($genre_name){
-//		$dvds = Dvd::with(['genre' => function($query){
-//			$query->where('genre_name', '=', $genre_name);
+//		$dvds = Dvd::with(['genre' => function($query) use ($genre_name{
+//			$query->where('genre->genre_name', 'like', '%'.$genre_name.'%');
 //		}])->get(); 
 		
-		$dvds = Dvd::with('genre')->get(); 
+		$dvds = Dvd::with('genre')
+			->whereHas('genre', function($query) use ($genre_name){
+				$query->where('genre_name', '=', $genre_name);
+			})->get(); 
+//		
+//		$dvds = Dvd::with('genre')->get(); 
+		
+//		var_dump($dvds->toArray()); 
 		
 		return view('dvdbygenre', [
 			'genre' => $genre_name,

@@ -2,9 +2,8 @@
 
 @section('content')
 	{{{ $genre }}}
-<!--	<?php dd($dvds) ?>-->
-	@foreach ($dvds as $dvd)
-{{{ $dvd->title }}}}
-		<br>
-	@endforeach
+
+<?php var_dump($dvds->toArray())  ?>
+
+	
 @endsection
