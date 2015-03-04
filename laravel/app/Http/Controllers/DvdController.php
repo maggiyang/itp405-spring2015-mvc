@@ -31,7 +31,7 @@ class DvdController extends Controller{
 //			$query->where('genre->genre_name', 'like', '%'.$genre_name.'%');
 //		}])->get(); 
 		
-		$dvds = Dvd::with('genre')
+		$dvds = Dvd::with('genre', 'label', 'rating')
 			->whereHas('genre', function($query) use ($genre_name){
 				$query->where('genre_name', '=', $genre_name);
 			})->get(); 
