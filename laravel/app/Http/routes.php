@@ -13,4 +13,5 @@ Route::get('/dvds/{id}', 'DvdController@viewReview');
 
 Route::post('/dvds/addreview', 'DvdController@addReview'); 
 
+
 ?>

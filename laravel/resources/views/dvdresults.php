@@ -18,7 +18,7 @@
 				<th>Sound</th>
 				<th>Format</th>
 				<th>Release Date</th>
-				<th>Review</th>
+				<th>More Details</th>
 			  </tr>
 		  	</thead>
 			<tbody>
@@ -36,7 +36,7 @@
   							echo date('d-M-Y', $date);
 						  ?>
 					  	</td>
-						<td><a href="/dvds/<?php echo $dvd->id ?>">Review</a></td>
+						<td><a href="/dvds/<?php echo $dvd->id ?>">More Details</a></td>
 			  		</tr>
 				<?php endforeach ?>
 		  	</tbody>

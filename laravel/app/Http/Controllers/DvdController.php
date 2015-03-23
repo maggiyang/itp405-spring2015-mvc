@@ -10,6 +10,7 @@ use App\Models\Sound;
 use App\Models\Rating;
 use App\Models\Genre;
 use App\Models\Format;
+use App\Services\RottenTomatoes; 
 
 class DvdController extends Controller{
 	public function search(Request $request){
@@ -66,16 +67,44 @@ class DvdController extends Controller{
 	}
 	
 	public function viewReview($id){
+		
+		
 		$query = new DvdQuery(); 
 		$dvd = $query->getDvd($id); 
-		$reviews = $query->getReviews($id); 
+		$reviews = $query->getReviews($id);
+		
+		$title = explode(" ", $dvd->title); 
+		$titleSearch = implode("+", $title); 
+		
+		$rottentomatoes = new RottenTomatoes();
+		$jsonString = $rottentomatoes->search($titleSearch); 
 		
 		
+		$dvds = json_decode($jsonString);
+		$dvdData = null;
+		
+		if(array_key_exists("movies", $dvds)){
+			$dvds = $dvds->movies; 
+			foreach($dvds as $d){
+				if((strcasecmp($d->title, $dvd->title) >= -1 || (strcasecmp($d->title, $dvd->title) <= 1))&& $d->mpaa_rating == $dvd->rating_name){
+					$dvdData = $d;
+					break;
+				}
+			}
+		}
 		return view('dvdreview', [
 			'dvd_id' => $id,
 			'dvd' => $dvd,
-			'reviews' => $reviews
+			'reviews' => $reviews,
+			'dvdData' => $dvdData	
 		]); 
+		
+		
+		
+		
+		
+		
+
 	}
 	
 	public function addReview(Request $request){
