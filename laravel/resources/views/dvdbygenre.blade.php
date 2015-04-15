@@ -3,13 +3,16 @@
 @section('content')
 	<h1>{{ $genre }}</h1>
 
-<!--<?php var_dump($dvds->toArray())  ?>-->
 @foreach ($dvds as $dvd)
-<h5>{{$dvd->title}}</h5>
-<p>Genre: {{$dvd->genre->genre_name}}</p>
-<p>Rating: {{$dvd->rating->rating_name}}</p>
-<p>Label: {{$dvd->label->label_name}}</p>
-<br>
+	<h5>{{$dvd->title}}</h5>
+	<p>Genre: {{$dvd->genre->genre_name}}</p>
+	@if($dvd->rating)
+		<p>Rating: {{$dvd->rating->rating_name}}</p>
+	@else
+		<p>No Rating Found</p>
+	@endif
+	<p>Label: {{$dvd->label->label_name}}</p>
+	<br>
 
 @endforeach
 <!--

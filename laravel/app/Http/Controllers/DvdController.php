@@ -37,6 +37,7 @@ class DvdController extends Controller{
 				$query->where('genre_name', '=', $genre_name);
 			})->get(); 
 //		
+//		dd($dvds);
 //		$dvds = Dvd::with('genre')->get(); 
 		
 //		var_dump($dvds->toArray()); 
